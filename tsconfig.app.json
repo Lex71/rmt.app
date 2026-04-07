@@ -30,7 +30,7 @@
     "noUncheckedSideEffectImports": true,
 
     /* Shadcn aliases*/
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"

@@ -18,14 +18,10 @@ interface CheckTableProps {
   value: string;
   item: Table;
   control: Control<ReservationForm, unknown, ReservationForm>;
+  required?: boolean;
 }
-export default function CheckTable({
-  name,
-  id,
-  value,
-  item,
-  control,
-}: CheckTableProps) {
+export default function CheckTable(props: CheckTableProps) {
+  const { name, id, value, item, control, required } = props;
   const { field } = useController({
     name,
     control,
@@ -85,6 +81,7 @@ export default function CheckTable({
           <Field orientation="vertical">
             <Checkbox
               // checked={checked}
+              required={required}
               checked={
                 Array.isArray(field.value) && field.value.includes(value)
               }

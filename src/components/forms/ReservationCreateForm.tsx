@@ -1,6 +1,7 @@
 import {
   useForm,
   // useController,
+  // Controller,
   useWatch,
   type SubmitHandler,
   // Control,
@@ -24,6 +25,12 @@ import Loading from "@/components/Loading";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
+// import { Field, FieldError /* , FieldLabel */ } from "../ui/field";
+// import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+// import { ChevronDownIcon } from "lucide-react";
+// import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
+import DatePicker from "../DatePicker";
 // import { CheckTable } from "../CheckTable";
 const CheckTable = lazy(() => import("../CheckTable"));
 
@@ -68,13 +75,19 @@ export default function ReservationCreateForm({
   const [filterBySeats, setFilterBySeats] = useState(true);
   const selectedTables = useWatch({ control, name: "tables" });
 
-  const dateWatch = watch("date", new Date().toISOString().split("T")[0]);
+  // const dateWatch = watch("date", new Date().toISOString().split("T")[0]);
+  const dateWatch = watch("date", format(new Date(), "yyyy-MM-dd"));
   const timeWatch = watch("time", "18:30");
   const seatsDebounced = useDebounce(getValues("seats"), 1000);
 
   useEffect(() => {
     const fetchAvailableTables = async (): Promise<void> => {
-      if (!getValues("date") || !getValues("time")) return;
+      if (
+        !getValues("date") ||
+        !getValues("time") ||
+        (Number(getValues("seats")) == 0 && tables.length)
+      )
+        return;
       setLoadingTables(true);
       try {
         const response = await getReservableTables({
@@ -95,7 +108,7 @@ export default function ReservationCreateForm({
       }
     };
     fetchAvailableTables();
-  }, [adjustDebounced, timeWatch, dateWatch, getValues /* , seatsDebounced */]);
+  }, [adjustDebounced, timeWatch, dateWatch, getValues, seatsDebounced]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     let adjustValue = 0;
@@ -146,6 +159,10 @@ export default function ReservationCreateForm({
   };
 
   const onSubmit: SubmitHandler<ReservationForm> = (data) => {
+    if (Object.keys(errors).length > 0) {
+      // There are validation errors, do not submit the form
+      return;
+    }
     submit({ ...data, time: adjustedTime });
     formReset();
   };
@@ -156,6 +173,12 @@ export default function ReservationCreateForm({
     setValue("tables", []);
     setValue("phone", "");
   };
+
+  // popover
+  // const [open, setOpen] = useState(false);
+  // const handleOpenChange = (open: boolean) => {
+  //   setOpen(open);
+  // };
 
   return (
     <form
@@ -169,6 +192,7 @@ export default function ReservationCreateForm({
 
       <div className="container m-auto grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="tile col-span-1">
+          {/*
           <label htmlFor="date" className="block text-sm font-medium">
             Date
           </label>
@@ -183,13 +207,76 @@ export default function ReservationCreateForm({
               })}
               className="block w-full rounded-md bg-white px-3 py-1.5 text-base  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
             />
-            {/* errors will return when field validation fails  */}
             {errors.date && (
               <div className="text-xs text-red-500">{errors.date.message}</div>
             )}
+          </div>*/}
+          <label htmlFor="date" className="block text-sm font-medium">
+            Date
+          </label>
+          <div className="mt-2">
+            <DatePicker
+              handleInputChange={(value) => {
+                handleInputChange({
+                  target: {
+                    name: "date",
+                    value: format(value, "yyyy-MM-dd"),
+                  },
+                } as ChangeEvent<HTMLInputElement>);
+              }}
+              control={control}
+            />
+            {/* <Controller
+              name="date"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        data-empty={!field.value}
+                        className="justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <ChevronDownIcon />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        id="date"
+                        aria-invalid={fieldState.invalid}
+                        {...field}
+                        onSelect={(value) => {
+                          field.onChange(value);
+                          if (value) {
+                            console.log(format(value, "yyyy-MM-dd"));
+                            setOpen(false);
+                            field.onChange(format(value, "yyyy-MM-dd"));
+                            handleInputChange({
+                              target: {
+                                name: "date",
+                                value: format(value, "yyyy-MM-dd"),
+                              },
+                            } as ChangeEvent<HTMLInputElement>);
+                          }
+                        }}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            /> */}
           </div>
         </div>
-
         <div className="tile col-span-1">
           <label htmlFor="time" className="block text-sm font-medium">
             Time
@@ -310,6 +397,7 @@ export default function ReservationCreateForm({
                       name="tables"
                       control={control}
                       value={table._id}
+                      required={true}
                     />
                   ))}
                 {seatsDebounced > 0 &&
