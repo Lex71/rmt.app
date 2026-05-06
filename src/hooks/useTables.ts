@@ -6,6 +6,8 @@ import { toast } from "sonner";
 
 type FilterProps = {
   id?: string;
+  name?: string;
+  seats?: string;
 };
 
 /**

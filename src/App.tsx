@@ -7,13 +7,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FacilitiesRoutes from "./routes/facilities.routes";
 import TablesRoutes from "./routes/tables.routes";
 import ReservationsRoutes from "./routes/reservations.routes";
+import UsersRoutes from "./routes/users.routes";
 // import Todos from "./pages/Todos";
 
 import MainLayout from "./layouts/main.layout";
 import Home from "./pages/Home";
 import { AuthProvider } from "./context/AuthContext";
 import AxiosInterceptor from "./components/AxiosInterceptor";
-import ChangePassword from "./pages/auth/ChangePassword";
+// import ChangePassword from "./pages/users/ChangePassword";
 
 function App() {
   return (
@@ -52,7 +53,8 @@ function App() {
               element={<ProtectedRoute allowedRoles={["admin", "user"]} />}
             >
               <Route path="/home" element={<Home />} />
-              <Route path="/change-password" element={<ChangePassword />} />
+              {/* <Route path="/change-password" element={<ChangePassword />} /> */}
+              <Route path="/users/*" element={<UsersRoutes />} />
             </Route>
           </Route>
         </Routes>

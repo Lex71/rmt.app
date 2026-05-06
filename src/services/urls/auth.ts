@@ -1,17 +1,19 @@
+import { request } from "@/lib/api";
 import type {
-  Login,
+  // Login,
   LoginResponse,
   LogoutResponse,
   RefreshTokenResponse,
-  Register,
+  // Register,
   RegisterResponse,
+  SigninForm,
+  SignupForm,
   UpdatePassword,
   User,
   WhoamiResponse,
 } from "@/types";
-import { request } from "../axiosClient";
 
-export const register = (data: Register): Promise<RegisterResponse> =>
+export const register = (data: SignupForm): Promise<RegisterResponse> =>
   request({
     url: `/auth/register`,
     method: "POST",
@@ -25,7 +27,7 @@ export const updatePassword = (data: UpdatePassword): Promise<User> =>
     data,
   });
 
-export const login = (data: Login): Promise<LoginResponse> =>
+export const login = (data: SigninForm): Promise<LoginResponse> =>
   request({
     url: `/auth/login`,
     method: "POST",

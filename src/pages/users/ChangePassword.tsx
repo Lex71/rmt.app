@@ -10,15 +10,11 @@ import Loading from "@/components/Loading";
 export default function ChangePassword() {
   // const navigate = useNavigate();
   const { changePassword } = useAuth();
-  const submit = async ({
-    email,
-    currentPassword,
-    newPassword,
-  }: ChangePasswordForm) => {
+  const submit = async (payload: ChangePasswordForm) => {
     try {
-      await changePassword(email, currentPassword, newPassword);
+      await changePassword(payload);
       toast.success("ChangePassword::success", {
-        description: `Successfully changed password for ${email}`,
+        description: `Successfully changed password for ${payload.email}`,
       });
       // await navigate("/home");
     } catch (error) {

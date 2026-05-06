@@ -112,7 +112,7 @@ export default function Reservations() {
       const status = value as Status;
       pch.mutate({ id, data: { status } });
     } else {
-      toast.error(`Cannot change status to ${status}`);
+      toast.error(`Cannot change status to ${value}`);
     }
   };
 

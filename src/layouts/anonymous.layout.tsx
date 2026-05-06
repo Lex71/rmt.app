@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 
 export default function AnonymousLayout() {
   return (
-    <>
+    <main className="w-full">
       <Header />
       <Toaster
         position="top-center"
@@ -26,9 +26,7 @@ export default function AnonymousLayout() {
         // }}
       />
       {/* <main className="flex-grow"> */}
-      <main className="flex min-h-full flex-col justify-center p-4 lg:px-8">
-        <Outlet /> {/* Nested routes are rendered here */}
-      </main>
-    </>
+      <Outlet /> {/* Nested routes are rendered here */}
+    </main>
   );
 }

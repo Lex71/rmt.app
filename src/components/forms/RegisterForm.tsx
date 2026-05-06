@@ -38,6 +38,11 @@ const PASSWORD_REGEX = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!.@#$%^&*])(?=.{8,})/,
 );
 
+const EMAIL_REGEX = new RegExp(
+  // /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+);
+
 export default function RegisterForm({
   submit,
   facilities,
@@ -73,7 +78,7 @@ export default function RegisterForm({
     setValue("email", "");
     setValue("password", "");
     setValue("passwordConfirm", "");
-    // setValue("facility", "");
+    // setValue("facility_id", "");
   };
 
   const onSubmit: SubmitHandler<SignupForm> = (data) => {
@@ -91,11 +96,11 @@ export default function RegisterForm({
 
   return (
     <form
-      className="space-y-6 px-4 py-6 sm:px-2"
+      className="flex flex-col items-center space-y-6 px-4 py-6 sm:px-2"
       action="#"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         <label
           htmlFor="name"
           className="block text-sm/6 font-medium text-gray-900"
@@ -118,7 +123,7 @@ export default function RegisterForm({
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         <label
           htmlFor="email"
           className="block text-sm/6 font-medium text-gray-900"
@@ -134,8 +139,7 @@ export default function RegisterForm({
             {...register("email", {
               required: "Email is required",
               pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                value: EMAIL_REGEX,
                 message: "Invalid email address",
               },
             })}
@@ -147,7 +151,7 @@ export default function RegisterForm({
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         {/* <label
           htmlFor="password"
           className="block text-sm/6 font-medium text-gray-900"
@@ -223,7 +227,7 @@ export default function RegisterForm({
         )}
       </div>
 
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         <div className="flex items-center justify-between">
           <label
             htmlFor="passwordConfirm"
@@ -251,9 +255,9 @@ export default function RegisterForm({
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         <label
-          htmlFor="facility"
+          htmlFor="facility_id"
           className="block text-sm/6 font-medium text-gray-900"
         >
           Facility
@@ -282,7 +286,7 @@ export default function RegisterForm({
               /> 
             </div>*/}
           <Controller
-            name="facility"
+            name="facility_id"
             control={control}
             render={({ field, fieldState }) => (
               <Field orientation="responsive" data-invalid={fieldState.invalid}>
@@ -324,26 +328,26 @@ export default function RegisterForm({
               </Field>
             )}
           />
-          {errors.facility && (
+          {errors.facility_id && (
             <div className="text-xs text-red-500">
-              {errors.facility.message}
+              {errors.facility_id.message}
             </div>
           )}
         </div>
       </div>
       {/* </div> */}
 
-      <div className="mt-10 flex items-center justify-between gap-2">
+      <div className="min-w-xs sm:min-w-sm mt-10 flex items-center justify-between gap-2">
         <Button
           type="submit"
-          className="grow justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+          className="grow rounded-md font-semibold bg-indigo-600 px-3 py-1.5 text-sm/6 text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
           tabIndex={6}
         >
           Register
         </Button>
         <div className="grow-0 text-sm">
           <Link
-            className="font-semibold text-indigo-600 hover:text-indigo-500"
+            className="grow rounded-md font-semibold text-indigo-600 hover:text-indigo-500 px-3 py-1.5 text-sm/6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
             to="/auth/login"
             tabIndex={7}
           >

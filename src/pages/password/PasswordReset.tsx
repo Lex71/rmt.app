@@ -171,7 +171,7 @@ export default function PasswordRecover() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="text-center border-2 border-dashed border-gray-300">
             <p className="my-10 text-center text-lg/9 tracking-tight text-gray-600">
-              {error.message ||
+              {error?.message ??
                 "The link is not valid. Please request a new one and try again within 1 hour."}
             </p>
           </div>

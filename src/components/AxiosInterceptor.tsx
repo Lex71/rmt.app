@@ -7,7 +7,7 @@ import {
   type AxiosResponse,
 } from "axios";
 import { useAuth } from "../hooks/useAuth";
-import { axiosClient } from "../services/axiosClient";
+import { axiosClient } from "@/lib/api";
 import { refresh } from "../services/urls/auth";
 
 // Add custom _retry property to InternalAxiosRequestConfig

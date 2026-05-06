@@ -130,11 +130,11 @@ export default function UpdatePasswordForm({ submit }: UpdatePasswordProps) {
               tabIndex={2}
               {...register("currentPassword", {
                 required: "Current password is required",
-                pattern: {
-                  value: PASSWORD_REGEX,
-                  message:
-                    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
-                },
+                // pattern: {
+                //   value: PASSWORD_REGEX,
+                //   message:
+                //     "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
+                // },
               })}
             />
             <InputGroupAddon

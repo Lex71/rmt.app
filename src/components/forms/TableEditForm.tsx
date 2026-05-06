@@ -8,7 +8,7 @@ interface TableEditFormProps {
   name: string;
   description?: string;
   seats: number;
-  facility?: string;
+  facility_id?: string;
   submit: (data: TableForm) => void;
 }
 

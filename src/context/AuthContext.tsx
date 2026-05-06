@@ -16,9 +16,9 @@ import {
   updatePassword,
 } from "../services/urls/auth";
 
-import type { User } from "@/types";
+import type { ChangePasswordForm, SigninForm, SignupForm, User } from "@/types";
 import { useLocation, useNavigate } from "react-router";
-import { axiosClient } from "../services/axiosClient";
+import { axiosClient } from "@/lib/api";
 
 interface AuthContextType {
   user: User | null;
@@ -28,20 +28,10 @@ interface AuthContextType {
   authToken?: string | null;
   setAuthToken: Dispatch<SetStateAction<string | null | undefined>>;
 
-  signin: (email: string, password: string) => Promise<void>;
-  signup: (
-    name: string,
-    email: string,
-    password: string,
-    passwordConfirm: string,
-    facility: string,
-  ) => Promise<void>;
+  signin: (data: SigninForm) => Promise<void>;
+  signup: (data: SignupForm) => Promise<void>;
   signout: () => Promise<void>;
-  changePassword: (
-    email: string,
-    currentPassword: string,
-    newPassword: string,
-  ) => Promise<void>;
+  changePassword: (data: ChangePasswordForm) => Promise<void>;
   previousPathRef: Ref<string>;
 }
 
@@ -81,7 +71,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
         // Update the ref with the current path
         previousPathRef.current = location.pathname;
       } catch (error) {
-        console.error("Signin error:", (error as Error).message);
+        console.error("Whoami error:", (error as Error).message);
         setUser(null);
         setIsAuthenticated(false);
       }
@@ -105,9 +95,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     return "";
   };
 
-  const signin = async (email: string, password: string) => {
+  const signin = async (payload: SigninForm) => {
     try {
-      const data = await login({ email, password });
+      const data = await login(payload);
       setUser(data.user);
       setIsAuthenticated(true);
       setAuthToken(data.accessToken);
@@ -119,17 +109,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const changePassword = async (
-    email: string,
-    currentPassword: string,
-    newPassword: string,
-  ) => {
+  const changePassword = async (payload: ChangePasswordForm) => {
     try {
-      await updatePassword({ email, currentPassword, newPassword });
-      // setUser(null);
-      // setIsAuthenticated(false);
-      // setAuthToken(null);
-      // await navigate("/auth/login");
+      await updatePassword(payload);
     } catch (error) {
       console.log("ChangePassword error:", (error as Error).message);
       throw new Error((error as Error).message);
@@ -150,21 +132,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signup = async (
-    name: string,
-    email: string,
-    password: string,
-    passwordConfirm: string,
-    facility: string,
-  ) => {
+  const signup = async (payload: SignupForm) => {
     try {
-      const data = await register({
-        name,
-        email,
-        password,
-        passwordConfirm,
-        facility,
-      });
+      const data = await register(payload);
       console.log("Signup successful!", data.user);
     } catch (error) {
       console.error("Signup error:", (error as Error).message);

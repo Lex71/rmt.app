@@ -126,7 +126,7 @@ export const queryKeys = {
     all: ["tables"] as const,
     byId: (id: string) => ["tables", id] as const,
     byFacility: (facilityId: string) =>
-      ["tables", "facility", facilityId] as const,
+      ["tables", "facility_id", facilityId] as const,
   },
   reservations: {
     all: ["reservations"] as const,
@@ -157,7 +157,7 @@ export const useApiGet = <T, E = Error, P = Record<string, string>>(
   key: readonly string[],
   fn: (params?: P) => Promise<T>,
   params?: P,
-  options: Omit<UseQueryOptions<T, E>, "queryKey" | "queryFn"> = {}
+  options: Omit<UseQueryOptions<T, E>, "queryKey" | "queryFn"> = {},
 ): UseQueryResult<T, E> => {
   return useQuery<T, E>({
     ...options,
@@ -180,7 +180,7 @@ export const useApiSend = <
   TData,
   TError = Error,
   TVariables = void,
-  TContext = unknown
+  TContext = unknown,
 >(
   fn: (variables: TVariables) => Promise<TData>,
   success: (data: TData) => void,
@@ -189,7 +189,7 @@ export const useApiSend = <
   options: Omit<
     UseMutationOptions<TData, TError, TVariables, TContext>,
     "mutationFn" | "onSuccess" | "onError"
-  >
+  >,
 ) => {
   // const queryClient = useQueryClient();
 

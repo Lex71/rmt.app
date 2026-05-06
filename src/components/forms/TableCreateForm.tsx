@@ -34,7 +34,8 @@ export default function TableCreateForm({ submit }: TableFormProps) {
 
   return (
     <form
-      className="flex flex-wrap align-middle justify-center gap-4 space-y-6 px-4 py-6 sm:px-2"
+      className="flex flex-col align-middle justify-center gap-4 md:flex-row space-y-6 px-4 py-6 sm:px-2"
+      //        "flex flex-col align-middle justify-center gap-4 sm:flex-row sm:items-center sm:gap-6"
       action="#"
       onSubmit={handleSubmit(onSubmit)}
     >

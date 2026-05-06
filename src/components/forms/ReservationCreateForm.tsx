@@ -189,7 +189,6 @@ export default function ReservationCreateForm({
       {/* <Activity mode={isVisible ? "visible" : "hidden"}>
         <MyComponent />
       </Activity> */}
-
       <div className="container m-auto grid grid-cols-1 sm:grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="tile col-span-1">
           {/*
@@ -343,7 +342,7 @@ export default function ReservationCreateForm({
           </div>
         </div>
         <div className="tile col-span-1">
-          <label htmlFor="adjust" className="block text-sm font-medium">
+          <label htmlFor="filterBySeats" className="block text-sm font-medium">
             {`${filterBySeats ? "Disable" : "Enable"} filter by seats`}
           </label>
           <div className="mt-2 flex">
@@ -354,7 +353,6 @@ export default function ReservationCreateForm({
               }}
               name="filterBySeats"
               id="filterBySeats"
-              value={adjust || ""}
               className="self-center"
             />
             <div className="text-sm font-medium self-center pl-2">{`${filterBySeats ? "Enabled" : "Disabled"}`}</div>
@@ -365,7 +363,7 @@ export default function ReservationCreateForm({
           {/* <label>Adjusted time</label> */}
           <div className="flex gap-4" id="adjusted-time">
             <span>Adjusted time</span>
-            <span className="font-bold">{adjustedTime || timeWatch}</span>
+            <span className="font-bold">{adjustedTime ?? timeWatch}</span>
           </div>
         </div>
 
@@ -385,8 +383,8 @@ export default function ReservationCreateForm({
                   </div>
                 )}
                 {seatsDebounced > 0 &&
-                  !loadingTables &&
-                  tablesBySeats.length > 0 &&
+                  // !loadingTables &&
+                  // tablesBySeats.length > 0 &&
                   tablesBySeats.reduce((acc, cur) => acc + cur.seats, 0) >=
                     seatsDebounced &&
                   tablesBySeats.map((table) => (
@@ -400,20 +398,17 @@ export default function ReservationCreateForm({
                       required={true}
                     />
                   ))}
-                {seatsDebounced > 0 &&
-                  !loadingTables &&
-                  tablesBySeats.length === 0 && (
-                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                      <div className="text-center border-2 border-dashed border-gray-300">
-                        <p className="my-10 text-center text-lg/9 tracking-tight text-gray-600">
-                          No table found with at least {seatsDebounced} seats.
-                          Try disabling the filter by seats
-                        </p>
-                      </div>
+                {seatsDebounced > 0 && tablesBySeats.length === 0 && (
+                  <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="text-center border-2 border-dashed border-gray-300">
+                      <p className="my-10 text-center text-lg/9 tracking-tight text-gray-600">
+                        No table found with at least {seatsDebounced} seats. Try
+                        disabling the filter by seats
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
                 {seatsDebounced > 0 &&
-                  !loadingTables &&
                   !filterBySeats &&
                   tablesBySeats.reduce((acc, cur) => acc + cur.seats, 0) <
                     seatsDebounced && (
@@ -444,8 +439,6 @@ export default function ReservationCreateForm({
               </div>
             )}
           </div>
-          {/* {!loadingTables && tables.length === 0 && <p>No tables found</p>} */}
-          {/* {loadingTables && <Loading />} */}
         </div>
 
         <div className="col-span-full">

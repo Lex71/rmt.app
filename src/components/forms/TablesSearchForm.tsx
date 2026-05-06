@@ -32,7 +32,7 @@ export default function TablesSearchForm({ submit }: TableSearchProps) {
 
   return (
     <form
-      className="flex flex-wrap align-middle justify-center gap-4 space-y-6 px-4 py-6 sm:px-2"
+      className="flex flex-col align-middle justify-center gap-4 sm:flex-row space-y-6 px-4 py-6 sm:px-2"
       action="#"
       onSubmit={handleSubmit(onSubmit)}
     >

@@ -52,7 +52,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between h-20 px-4 shadow-md  dark:shadow-md">
+    <nav className="flex items-center justify-between h-16 px-4 shadow-md  dark:shadow-md">
       {/* LEFT */}
       {/* <SidebarTrigger /> */}
       <div className="text-xl font-bold sm:text-2xl">
@@ -120,7 +120,7 @@ const Navbar = () => {
               <DropdownMenuItem>
                 <RectangleEllipsis className="mr-2 h-1.5 w-4" />
                 <Link
-                  to="/change-password"
+                  to="/users/change-password"
                   // className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                 >
                   Change password

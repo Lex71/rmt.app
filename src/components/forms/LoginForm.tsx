@@ -37,11 +37,11 @@ export default function LoginForm({ submit }: LoginFormProps) {
 
   return (
     <form
-      className="space-y-6 px-4 py-6 sm:px-2"
+      className="flex flex-col items-center space-y-6 px-4 py-6 sm:px-2"
       action="#"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         <label htmlFor="email" className="block text-sm/6 font-medium">
           Email address
         </label>
@@ -59,7 +59,7 @@ export default function LoginForm({ submit }: LoginFormProps) {
                 message: "Invalid email address",
               },
             })}
-            className="block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            className="block max-w-sm rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
           />
           {errors.email && (
             <div className="text-xs text-red-500">{errors.email.message}</div>
@@ -67,7 +67,7 @@ export default function LoginForm({ submit }: LoginFormProps) {
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="min-w-xs sm:min-w-sm mt-4">
         {/* <div className="flex items-center justify-between">
           <label htmlFor="password" className="block text-sm/6 font-medium">
             Password
@@ -127,7 +127,7 @@ export default function LoginForm({ submit }: LoginFormProps) {
                 placeholder="Enter password"
                 type={isPasswordVisible ? "text" : "password"}
                 autoComplete="current-password"
-                tabIndex={3}
+                tabIndex={2}
                 {...register("password", {
                   required: "Password is required",
                 })}
@@ -136,7 +136,7 @@ export default function LoginForm({ submit }: LoginFormProps) {
                 className="cursor-pointer"
                 align="inline-end"
                 onClick={togglePasswordVisibility}
-                tabIndex={8}
+                tabIndex={6}
               >
                 {isPasswordVisible ? (
                   <Eye className="text-gray-500" />
@@ -151,9 +151,9 @@ export default function LoginForm({ submit }: LoginFormProps) {
           <div className="text-xs text-red-500">{errors.password.message}</div>
         )}
       </div>
-      <div className="mt-10 flex items-center justify-between gap-2">
+      <div className="min-w-xs sm:min-w-sm mt-10 flex items-center justify-between gap-2">
         <Button
-          className="grow rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+          className="grow rounded-md font-semibold bg-indigo-600 px-3 py-1.5 text-sm/6 text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
           // className="grow text-indigo-600 hover:text-indigo-500"
           // variant="secondary"
           type="submit"
@@ -163,7 +163,7 @@ export default function LoginForm({ submit }: LoginFormProps) {
         </Button>
         <div className="grow-0 text-sm">
           <Link
-            className="font-semibold text-indigo-600 hover:text-indigo-500"
+            className="grow rounded-md font-semibold text-indigo-600 hover:text-indigo-500 px-3 py-1.5 text-sm/6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
             to="/auth/register"
             tabIndex={4}
           >

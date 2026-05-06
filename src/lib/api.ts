@@ -9,7 +9,7 @@ export const axiosClient: AxiosInstance = (() => {
   return axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
     },
     timeout: 10000, // 10 seconds
@@ -20,15 +20,20 @@ export const axiosClient: AxiosInstance = (() => {
 export const request = async (options: AxiosRequestConfig<unknown>) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSuccess = (response: { data: any }) => {
-    console.log("##### REQUEST success", response?.data.data);
-    return response?.data.data;
+    console.log(
+      "##### REQUEST success",
+      response?.data?.data ?? response?.data,
+    );
+    return response?.data?.data ?? response?.data;
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onError = (error: { response: { data: any } }) => {
-    console.log("##### REQUEST error", error);
+    // console.log("##### REQUEST error", error);
+    console.log("##### REQUEST error", error.response?.data || error);
     // return Promise.reject(error.response?.data);
-    return Promise.reject(error);
+    // return Promise.reject(error);
+    return Promise.reject(error.response?.data || error);
   };
 
   return axiosClient(options).then(onSuccess).catch(onError);

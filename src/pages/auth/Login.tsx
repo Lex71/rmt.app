@@ -12,9 +12,9 @@ const LoginForm = lazy(() => import("@/components/forms/LoginForm"));
 export default function Login() {
   const navigate = useNavigate();
   const { signin } = useAuth();
-  const submit = async ({ email, password }: SigninForm): Promise<void> => {
+  const submit = async (data: SigninForm): Promise<void> => {
     try {
-      await signin(email, password);
+      await signin(data);
       navigate("/home");
     } catch (error) {
       console.error(error);

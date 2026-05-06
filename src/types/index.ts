@@ -50,7 +50,7 @@ export interface Register {
   email: string;
   password: string;
   passwordConfirm: string;
-  facility: string;
+  facility_id: string;
 }
 
 export interface RegisterResponse {
@@ -60,7 +60,7 @@ export interface RegisterResponse {
 export type SignupForm = {
   name: string;
   email: string;
-  facility: string;
+  facility_id: string;
   password: string;
   passwordConfirm: string;
 };
@@ -129,7 +129,7 @@ export interface Table extends BaseEntity {
   name: string;
   seats: number;
   description?: string;
-  facility: string;
+  facility_id: string;
 }
 
 export type TableForm = {
@@ -174,7 +174,7 @@ export interface Reservation extends BaseEntity {
   phone: string;
   seats: number;
   status: Status;
-  facility: string;
+  facility_id: string;
   tables: Table[];
 }
 
@@ -206,6 +206,7 @@ export interface User extends BaseEntity {
   email: string;
   role: UserRole;
   password?: string;
+  facility_id?: string;
 }
 
 /**

@@ -5,13 +5,15 @@ function ProtectedRoute({ allowedRoles }: Record<string, string[]>) {
   const { isAuthenticated, user } = useAuth();
 
   if (!isAuthenticated || !user) {
-    return <Navigate to="/auth/login" />;
+    // CHECK: still needed?
+    // return <Navigate to="/auth/login" />;
+    return;
   }
 
   if (
     allowedRoles &&
     allowedRoles.length > 0 &&
-    !allowedRoles.includes(user.role)
+    !allowedRoles.includes(user?.role ?? "")
   ) {
     return <Navigate to="/home" replace />;
   }

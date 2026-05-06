@@ -1,5 +1,5 @@
+import { request } from "@/lib/api";
 import type { Reservation, Table } from "@/types";
-import { request } from "../axiosClient";
 
 export const getOne = (id: string): Promise<Reservation> =>
   request({

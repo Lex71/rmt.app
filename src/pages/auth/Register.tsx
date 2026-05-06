@@ -22,10 +22,10 @@ export default function Register() {
     email,
     password,
     passwordConfirm,
-    facility,
+    facility_id,
   }: SignupForm): Promise<void> => {
     try {
-      await signup(name, email, password, passwordConfirm, facility);
+      await signup({ name, email, password, passwordConfirm, facility_id });
       // await navigate("/auth/login");
       // setRegistered(true);
       toast.success("Register::success", {
@@ -66,7 +66,7 @@ export default function Register() {
       </div>
       {isPending && <Loading />}
       {isError && (
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm relative top-[10vh]">
+        <div className="mx-auto max-w-sm top-[10vh]">
           <div className="text-center border-2 border-dashed border-gray-300">
             <div className="my-10 text-center text-lg/9 tracking-tight text-gray-600">
               <p>Error: {error?.message}</p>

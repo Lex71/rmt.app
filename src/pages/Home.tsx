@@ -17,7 +17,7 @@ function Home() {
   return (
     <>
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <p className="text-center text-xl/9 tracking-tight">
+        <p className="my-8 text-center text-xl/9 tracking-tight">
           Welcome home, {user?.name}!
         </p>
       </div>

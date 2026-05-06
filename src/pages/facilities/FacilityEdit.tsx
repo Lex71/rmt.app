@@ -38,7 +38,7 @@ function FacilityEdit() {
   return user?.role === "admin" ? (
     <>
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="text-2xl py-8 font-semibold ">Facility Edit</h1>
+        <h1 className="text-2xl py-4 font-semibold ">Facility Edit</h1>
       </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">

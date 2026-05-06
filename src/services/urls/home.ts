@@ -1,4 +1,4 @@
-import { request } from "@/services/axiosClient";
+import { request } from "@/lib/api";
 import type { HomeResponse } from "@/types";
 export const getAll = (): Promise<HomeResponse> =>
   request({
